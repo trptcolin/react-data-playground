@@ -22,20 +22,18 @@ export default function App() {
   );
 }
 
-function GithubRepoInfo({ url }) {
-  const { isLoading, error, data, isFetching } = useQuery(
-    ["githubRepo", url],
-    () =>
-      axios.get(url).then((res) => {
-        console.log(`fetched url: ${url}`);
-        return res.data;
-      })
+const useGithubQuery = ({ url }) =>
+  useQuery(["githubRepo", url], () =>
+    axios.get(url).then((res) => {
+      console.log(`fetched url: ${url}`);
+      return res.data;
+    })
   );
 
+function GithubRepoInfo({ url }) {
+  const { isLoading, error, data, isFetching } = useGithubQuery({ url });
   if (isLoading) return "Loading...";
-
   if (error) return "An error has occurred: " + error.message;
-
   return (
     <div>
       <h1>{data.name}</h1>
