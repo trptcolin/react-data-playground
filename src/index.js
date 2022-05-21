@@ -9,16 +9,26 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Example />
+      <GithubRepoInfo
+        url={"https://api.github.com/repos/trptcolin/consistency_fail"}
+      />
+      <GithubRepoInfo
+        url={"https://api.github.com/repos/functional-koans/clojure-koans"}
+      />
+
+      <ReactQueryDevtools initialIsOpen />
     </QueryClientProvider>
   );
 }
 
-function Example() {
-  const { isLoading, error, data, isFetching } = useQuery("repoData", () =>
-    axios
-      .get("https://api.github.com/repos/trptcolin/consistency_fail")
-      .then((res) => res.data)
+function GithubRepoInfo({ url }) {
+  const { isLoading, error, data, isFetching } = useQuery(
+    ["githubRepo", url],
+    () =>
+      axios.get(url).then((res) => {
+        console.log(`fetched url: ${url}`);
+        return res.data;
+      })
   );
 
   if (isLoading) return "Loading...";
@@ -33,7 +43,6 @@ function Example() {
       <strong>✨ {data.stargazers_count}</strong>{" "}
       <strong>🍴 {data.forks_count}</strong>
       <div>{isFetching ? "Updating..." : ""}</div>
-      <ReactQueryDevtools initialIsOpen />
     </div>
   );
 }
