@@ -97,14 +97,29 @@ function GithubRepoInfo() {
   return (
     <div>
       <h1>
-        <a href={data.html_url} target="_blank">
+        <a href={data.html_url} target="_blank" rel="noopener noreferrer">
           {data.name}
         </a>
       </h1>
       <p>{data.description}</p>
-      <strong>👀 {data.subscribers_count}</strong>{" "}
-      <strong>✨ {data.stargazers_count}</strong>{" "}
-      <strong>🍴 {data.forks_count}</strong>
+      <strong>
+        <span role="img" aria-label="eyes">
+          👀
+        </span>{" "}
+        {data.subscribers_count}
+      </strong>{" "}
+      <strong>
+        <span role="img" aria-label="stars">
+          ✨
+        </span>{" "}
+        {data.stargazers_count}
+      </strong>{" "}
+      <strong>
+        <span role="img" aria-label="forks">
+          🍴
+        </span>{" "}
+        {data.forks_count}
+      </strong>
       <div>{isLoading ? "Updating..." : ""}</div>
     </div>
   );
