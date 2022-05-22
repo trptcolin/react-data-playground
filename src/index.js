@@ -21,7 +21,9 @@ const RepoChoice = () => {
   const [repo, setRepo] = React.useState(() => filters.repo);
   const handleSubmit = (event) => {
     event.preventDefault();
-    setFilters({ ...filters, repo });
+    if (filters.repo !== repo) {
+      setFilters({ ...filters, repo });
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
