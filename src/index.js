@@ -7,7 +7,7 @@ const FilterContext = React.createContext(null);
 
 const Filters = ({ children }) => {
   const [filters, setFilters] = React.useState({
-    repo: "trptcolin/consistency_fail",
+    repo: "trptcolin/slowdb",
   });
   return (
     <FilterContext.Provider value={{ filters, setFilters }}>
@@ -96,7 +96,11 @@ function GithubRepoInfo() {
 
   return (
     <div>
-      <h1>{data.name}</h1>
+      <h1>
+        <a href={data.html_url} target="_blank">
+          {data.name}
+        </a>
+      </h1>
       <p>{data.description}</p>
       <strong>👀 {data.subscribers_count}</strong>{" "}
       <strong>✨ {data.stargazers_count}</strong>{" "}
